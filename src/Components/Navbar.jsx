@@ -25,7 +25,7 @@ const Navbar = () => {
 
     const getUser = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/login/success", { withCredentials: true });
+            const response = await axios.get("portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
             const user = JSON.parse(response.data.user);
             // alert(user.displayName);
             // console.log(response.data.user.displayName);
