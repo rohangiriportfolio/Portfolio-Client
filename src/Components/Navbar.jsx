@@ -42,7 +42,7 @@ const Navbar = () => {
     let isClicked = false;
 
     const logout = () => {
-        window.open("http://localhost:5000/logout", "_self");
+        window.open("https://portfolio-server-ashy-kappa.vercel.app/logout", "_self");
     }
 
     const showLogout = () => {
