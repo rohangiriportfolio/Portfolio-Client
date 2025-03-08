@@ -42,7 +42,7 @@ const Comments = () => {
             .then(data => {
                 const likesCountElement = element.querySelector('.likesCount');
                 const currentLikesCount = parseInt(likesCountElement.textContent);
-                if (data.message === 'true') {
+                if (data.data.message === 'true') {
                     likesCountElement.innerText = currentLikesCount + 1;
                     const likesIcon = element.querySelector('.likesIcon i');
                     if (likesIcon.classList.contains("fa-thumbs-o-up")) {
