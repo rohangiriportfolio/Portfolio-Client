@@ -1606,7 +1606,8 @@ pre {
 @media (max-width: 1024px) {
     #Comments-div2-container {
         width: 84vw;
-        margin-top: -1vh;
+        padding-top: 3vh;
+        margin-top: -2vh;
     }
 }
 
