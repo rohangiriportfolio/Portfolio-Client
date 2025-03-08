@@ -185,7 +185,7 @@ const Home = () => {
 
     return (
         <div id='Home-sec'>
-            <p id='Home-banner'><i className="fa fa-home" style={{ margin: '0.3vh 0.6vh', padding: '0.1vh', color: '#074fe1' }}></i></p>
+            <p id='Home-banner'><i className="fa fa-home"></i></p>
             <span id='Home-banner-text'>∼ Home.</span>
             <div id='Home'>
                 <div id='Home-img'>
