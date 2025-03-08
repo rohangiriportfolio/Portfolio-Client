@@ -101,7 +101,7 @@ const Navbar = () => {
                             Object?.keys(userdata)?.length > 0 ? (
                                 <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '3vw', width: '3vw', boxShadow: "0px 0px 10px 0px #094acd", borderRadius: "50%" }}>
                                     <img id='Profile' onMouseOver={showLogout} onMouseOut={hideLogout} onClick={showLogoutPopup} src={userdata?.image} style={{ width: "100%", height: '100%', borderRadius: "50%" }} alt="" />
-                                    <span id='Profile-info' style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '14vw', position: 'absolute', fontSize: '0.8vw', marginTop: '10.5vw', marginRight: '10vw', boxShadow: "0px 0px 10px 0px #094acd", padding: '0.05vw 0.3vw 0.4vw 0.3vw', borderRadius: '0.7vw', background: '#01102d' }}>
+                                    <span id='Profile-info' style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto', position: 'absolute', fontSize: '0.8vw', marginTop: '10.5vw', marginRight: '7.5vw', boxShadow: "0px 0px 10px 0px #094acd", padding: '0.05vw 0.3vw 0.4vw 0.3vw', borderRadius: '0.7vw', background: '#01102d' }}>
                                         <li style={{ fontSize: '1vw' }}>
                                             <i className="fa fa-user"></i>
                                             <span style={{ color: '#074fe1' }}>{userdata?.displayName.split(' ')[0][0]}</span>
@@ -117,9 +117,9 @@ const Navbar = () => {
                                                     ) : (<></>)
                                             }
                                         </li>
-                                        <li style={{ fontSize: '0.9vw' }}><i className="fa fa-envelope"></i> {userdata?.email}</li>
+                                        <li style={{display:'flex', flexDirection:'row', alignItems:'center', fontSize: '0.9vw' }}><i className="fa fa-envelope"></i>{userdata?.email.slice(0, userdata.email.indexOf('@'))}</li>
                                         <li onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} onClick={logout} style={{ fontSize: '0.9vw' }}>
-                                            <span id='Logout'><i className="fa fa-sign-out"></i> L</span>
+                                            <span id='Logout'><i className="fa fa-sign-out"></i>L</span>
                                             ogout
                                         </li>
                                     </span>
@@ -146,13 +146,13 @@ const Navbar = () => {
                         <span style={{ transform: 'translate(0%, -140%) rotate(-45deg)' }}></span>
                     </span>
                     <ul id="Nav-content">
-                        <span style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "15vw", height: "20vw", margin: "1.5vw", color: "rgba(255, 255, 255, 0.697)" }}>
+                        <span style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "15vw", height: "20vw", margin: "1.5vw", color: "rgba(255, 255, 255, 0.697)", marginBottom:'10vw' }}>
                             {
                                 Object?.keys(userdata)?.length > 0 ? (
                                     <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '15vw', width: '15vw', boxShadow: "0px 0px 10px 0px #094acd", borderRadius: "50%" }}>
                                         <img id='Profile' onMouseOver={showLogout} onMouseOut={hideLogout} onClick={showLogoutPopup} src={userdata?.image} style={{ width: "100%", height: '100%', borderRadius: "50%" }} alt="" />
-                                        <span id='Profile-info' style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '14vw', position: 'absolute', fontSize: '0.8vw', marginTop: '10.5vw', marginRight: '12vw', boxShadow: "0px 0px 10px 0px #094acd", padding: '0.05vw 0.3vw 0.4vw 0.3vw', borderRadius: '0.7vw', background: '#01102d' }}>
-                                            <li style={{ fontSize: '1vw' }}>
+                                        <span id='Profile-info' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 'auto', position: 'absolute', fontSize: '0.8vw', marginTop: '40vw', marginLeft: '25vw', boxShadow: "0px 0px 10px 0px #094acd", padding: '0.05vw 0.3vw 0.4vw 0.3vw', borderRadius: '2vw', background: '#01102d' }}>
+                                            <li style={{ fontSize: '4vw' }}>
                                                 <i className="fa fa-user"></i>
                                                 <span style={{ color: '#074fe1' }}>{userdata?.displayName.split(' ')[0][0]}</span>
                                                 {userdata?.displayName.split(' ')[0].slice(1,)}
@@ -167,9 +167,9 @@ const Navbar = () => {
                                                         ) : (<></>)
                                                 }
                                             </li>
-                                            <li style={{ fontSize: '0.9vw' }}><i className="fa fa-envelope"></i> {userdata?.email}</li>
-                                            <li onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} onClick={logout} style={{ fontSize: '0.9vw' }}>
-                                                <span id='Logout'><i className="fa fa-sign-out"></i> L</span>
+                                            <li style={{display:'flex', flexDirection:'row', fontSize: '4vw' }}><i className="fa fa-envelope"></i><span>{userdata?.email.slice(0, userdata.email.indexOf('@'))}</span></li>
+                                            <li onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} onClick={logout} style={{ fontSize: '4vw' }}>
+                                                <span id='Logout'><i className="fa fa-sign-out"></i>L</span>
                                                 ogout
                                             </li>
                                         </span>
