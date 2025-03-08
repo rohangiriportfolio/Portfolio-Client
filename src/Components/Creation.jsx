@@ -31,7 +31,7 @@ const Creation = () => {
   return (
     <div id="Creation-sec">
       <p id="Creation-banner">
-        <i className="fa fa-cogs" style={{ margin: "0.3vh 0.6vh", padding: "0.2vh", color: "#074fe1", fontSize: "90%" }}></i>
+        <i className="fa fa-cogs"></i>
       </p>
       <span id='Creation-banner-text'>∼ Creation.</span>
 
