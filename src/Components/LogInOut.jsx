@@ -16,7 +16,7 @@ const LogInOut = () => {
             const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
               headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
             });
-            await axios.post("http://localhost:5000/api/data", res.data, {
+            await axios.post("https://portfolio-server-ashy-kappa.vercel.app/api/data", res.data, {
               // params: res.data ,
               withCredentials: true,
             });
