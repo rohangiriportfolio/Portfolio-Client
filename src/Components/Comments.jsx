@@ -220,7 +220,7 @@ const Comments = () => {
     return (
         <div id="Comments-sec">
             <p id="Comments-banner">
-                <i className="fa fa-commenting" style={{ margin: '0.3vh 0.6vh', padding: '0.2vh', color: '#074fe1', fontSize: '90%' }}></i>
+                <i className="fa fa-commenting"></i>
             </p>
             <span id='Comments-banner-text'>∼ Comments.</span>
             <div id="Comments">
