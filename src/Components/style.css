@@ -1606,7 +1606,7 @@ pre {
 @media (max-width: 1024px) {
     #Comments-div2-container {
         width: 84vw;
-        padding-top: 0vh;
+        padding-top: -1vh;
     }
 }
 
