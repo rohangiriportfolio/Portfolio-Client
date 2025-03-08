@@ -150,7 +150,10 @@ const Terminal = () => {
                     }
                 case 'logout':
                     if(profiledata){
-                        return logout();
+                        setTimeout(() => {
+                            logout();
+                          }, 1800);
+                          return "Wait a sec...";
                     }
                     else{
                         return "You are already logged out!"
