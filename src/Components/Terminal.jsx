@@ -15,7 +15,7 @@ const Terminal = () => {
     }
     const getProfile = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/login/success", { withCredentials: true });
+            const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
             user = JSON.parse(response.data.user);
             // setProfiledata(user.displayName);
             profiledata=user.displayName;
