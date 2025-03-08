@@ -38,7 +38,7 @@ const Comments = () => {
         const element = event.target.closest('.Comments-div2');
         const cardId = element.getAttribute('data-id');
         console.log(cardId);
-        await axios.post('http://localhost:5000/likes/submit', { cardId, userdata })
+        await axios.post('https://portfolio-server-ashy-kappa.vercel.app/likes/submit', { cardId, userdata })
             .then(data => {
                 const likesCountElement = element.querySelector('.likesCount');
                 const currentLikesCount = parseInt(likesCountElement.textContent);
@@ -65,7 +65,7 @@ const Comments = () => {
         const element = event.target.closest('.Comments-div2');
         const cardId = element.getAttribute('data-id');
         console.log(cardId);
-        await axios.post('http://localhost:5000/disLikes/submit', { cardId, userdata })
+        await axios.post('https://portfolio-server-ashy-kappa.vercel.app/disLikes/submit', { cardId, userdata })
             .then(data => {
                 const disLikesCountElement = element.querySelector('.disLikesCount');
                 const currentDisLikesCount = parseInt(disLikesCountElement.textContent);
@@ -95,7 +95,7 @@ const Comments = () => {
 
     const getUser = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/login/success", { withCredentials: true });
+            const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
             const user = JSON.parse(response.data.user);
             setUserdata(user)
         } catch (error) {
@@ -113,7 +113,7 @@ const Comments = () => {
 
     const sendData = async () => {
         try {
-            await axios.post('http://localhost:5000/comments/submit', { text, userdata });
+            await axios.post('https://portfolio-server-ashy-kappa.vercel.app/comments/submit', { text, userdata });
             getComments();
             // console.log(response.data);
         } catch (error) {
@@ -125,7 +125,7 @@ const Comments = () => {
 
     const getComments = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/comments/show", { withCredentials: true });
+            const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/comments/show", { withCredentials: true });
             // console.log(response.data.comments);
             setCommentsdata(response.data.comments)
         } catch (error) {
