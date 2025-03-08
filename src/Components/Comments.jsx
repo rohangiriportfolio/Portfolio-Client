@@ -153,7 +153,8 @@ const Comments = () => {
             document.getElementById('Comments-sub-div1-user').style.width = '16vw';
             document.getElementById('Comments-div1-textarea').style.minWidth = '80vw';
             document.getElementById('Comments-div1-textarea').style.maxWidth = '80vw';
-            document.getElementById('Comments-div2-container').style.paddingTop = '-3vh';
+            document.getElementById('Comments-div2-container').style.paddingTop = '0vh';
+            document.getElementById('Comments-div2-container').style.marginTop = '-2vh';
         }
         document.getElementById('Comments-sub-div1-user-name').style.display = 'flex';
         document.getElementById('Comments-sub-div1-title').style.display = 'flex';
@@ -186,7 +187,8 @@ const Comments = () => {
             document.getElementById('Comments-sub-div1-user').style.width = '8vw';
             document.getElementById('Comments-div1-textarea').style.minWidth = '71vw';
             document.getElementById('Comments-div1-textarea').style.maxWidth = '71vw';
-            document.getElementById('Comments-div2-container').style.paddingTop = '-1vh';
+            document.getElementById('Comments-div2-container').style.paddingTop = '0vh';
+            document.getElementById('Comments-div2-container').style.marginTop = '-1vh';
         }
         document.getElementById('Comments-sub-div1-user-name').style.display = 'none';
         document.getElementById('Comments-sub-div1-title').style.display = 'none';
