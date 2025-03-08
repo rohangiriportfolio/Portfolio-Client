@@ -11,7 +11,7 @@ const Terminal = () => {
     // const [profiledata, setProfiledata] = useState();
     let profiledata;
     const logout = () => {
-        window.open("http://localhost:5000/logout", "_self");
+        window.open("https://portfolio-server-ashy-kappa.vercel.app/logout", "_self");
     }
     const getProfile = async () => {
         try {
