@@ -217,7 +217,7 @@ const Terminal = () => {
     return (
         <div id="Terminal-sec">
             <p id="Terminal-banner">
-                <i className="fa fa-terminal" style={{ margin: '0.3vh 0.6vh', padding: '0.2vh', color: '#074fe1', fontSize: '90%' }}></i>
+                <i className="fa fa-terminal"></i>
             </p>
             <span id='Terminal-banner-text'>∼ Terminal.</span>
             <div id="Terminal">
