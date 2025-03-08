@@ -154,7 +154,7 @@ const Comments = () => {
             document.getElementById('Comments-div1-textarea').style.minWidth = '80vw';
             document.getElementById('Comments-div1-textarea').style.maxWidth = '80vw';
             document.getElementById('Comments-div2-container').style.paddingTop = '0vh';
-            document.getElementById('Comments-div2-container').style.marginTop = '-4vh';
+            document.getElementById('Comments-div2-container').style.marginTop = '-6vh';
         }
         document.getElementById('Comments-sub-div1-user-name').style.display = 'flex';
         document.getElementById('Comments-sub-div1-title').style.display = 'flex';
