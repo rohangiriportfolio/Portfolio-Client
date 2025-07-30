@@ -13,19 +13,19 @@ const Terminal = () => {
     const logout = () => {
         window.open("https://portfolio-server-ashy-kappa.vercel.app/logout", "_self");
     }
-    const getProfile = async () => {
-        try {
-            const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
-            user = JSON.parse(response.data.user);
-            // setProfiledata(user.displayName);
-            profiledata=user.displayName;
-        } catch (error) {
-            console.log("error", error);
-        }
-    }
-    useEffect(()=>{
-        getProfile();
-    }, []);
+    // const getProfile = async () => {
+    //     try {
+    //         const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
+    //         user = JSON.parse(response.data.user);
+    //         // setProfiledata(user.displayName);
+    //         profiledata=user.displayName;
+    //     } catch (error) {
+    //         console.log("error", error);
+    //     }
+    // }
+    // useEffect(()=>{
+    //     getProfile();
+    // }, []);
     // useEffect(() => {
     //     if (profiledata) {
     //         console.log(profiledata); // Logs profiledata after it changes
@@ -34,14 +34,13 @@ const Terminal = () => {
 
     
     useEffect(() => {
-        console.log(profiledata);
+
         let input = document.getElementById("input");
         let output = document.getElementById("output");
         let typed = document.getElementById('typed');
         let terminalSubDiv2 = document.getElementById('Terminal-sub-div2');
         let terminalDiv = document.getElementById('Terminal-div');
         terminalSubDiv2.style.scrollBehavior = "smooth";
-
         document.addEventListener('click', function(event) {
             if (!terminalDiv.contains(event.target)) {
                 input.blur();
@@ -49,38 +48,35 @@ const Terminal = () => {
             }
           });
           
+document.getElementById("terminal-form").addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        input.addEventListener('keydown', function (event) {
-            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-                event.preventDefault();
+            const command = input.value.trim();
+            const response = processCommand(command);
+
+            if (command && command !== "clear") {
+                const commandOutput = document.createElement('span');
+                commandOutput.classList.add('command-line');
+                commandOutput.innerHTML = `\u003C<span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">R</span>ohan's <span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">P</span>ortfolio\u002F\u003E\u0020<span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">~</span>${name}`;
+                commandOutput.innerHTML += input.value;
+                output.appendChild(commandOutput);
+                output.removeChild(typed);
             }
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                
-                const command = input.value.trim();
-                const response = processCommand(command);
-                if (command && command !== "clear") {
-                    // Create a new div element for the command entered
-                    const commandOutput = document.createElement('span');
-                    commandOutput.classList.add('command-line');
-                    commandOutput.innerHTML = `\u003C<span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">R</span>ohan's <span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">P</span>ortfolio\u002F\u003E\u0020<span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">~</span>`;
-                    commandOutput.innerHTML += input.value;
-                    output.appendChild(commandOutput); // Append command to output
-                    output.removeChild(typed);
-                }
-                input.value = '';
-                if (response && response !== "") {
-                    // Create a new div element for the response
-                    const responseOutput = document.createElement('span');
-                    responseOutput.classList.add('response-line');
-                    output.appendChild(responseOutput); // Append response to output
-                    animateTypeOut(responseOutput, response); // Trigger typing animation for response
-                    terminalSubDiv2.scrollTop = terminalSubDiv2.scrollHeight;
-                    // document.querySelector('.response-line').appendChild(span);
-                }
+
+            input.value = '';
+            if (response && response !== "") {
+                const responseOutput = document.createElement('span');
+                responseOutput.classList.add('response-line');
+                output.appendChild(responseOutput);
+                animateTypeOut(responseOutput, response);
+                terminalSubDiv2.scrollTop = terminalSubDiv2.scrollHeight;
             }
-            
+
+            setTimeout(() => input.focus(), 0);
         });
+
+
+
         function appendtyped() {
             output.appendChild(typed);
             input.style.width = `${minWidth}px`;
@@ -125,7 +121,7 @@ const Terminal = () => {
         // console.log(user.displayName);
         function processCommand(command) {
             const cmd = command.toLowerCase();
-            
+
             // Handle different commands
             switch (cmd) {
                 case 'whoami':
@@ -133,33 +129,33 @@ const Terminal = () => {
                 case 'about':
                     return "This is a Functional Terminal<br/>";
                 case 'help':
-                    return "Commands: whoami, help, about, contact, clear, echo, problem<br/>";
+                    return "Commands: whoami, help, about, contact, clear, echo, problem, login, logout.<br/>";
                 case 'contact':
                     return "You can reach me via email at 'rohangiri1884@gmail.com'.<br/>";
                 case 'login':
-                    if(profiledata){
+                    if (profiledata) {
                         console.log(profiledata);
                         return "You are already logged in!"
                     }
-                    else{
+                    else {
                         console.log(profiledata);
                         setTimeout(() => {
                             navigate('/LogInOut');
-                          }, 1800);
-                          return "Wait a sec...";
+                        }, 1800);
+                        return "Wait a sec...";
                     }
                 case 'logout':
-                    if(profiledata){
+                    if (profiledata) {
                         setTimeout(() => {
                             logout();
-                          }, 1800);
-                          return "Wait a sec...";
+                        }, 1800);
+                        return "Wait a sec...";
                     }
-                    else{
+                    else {
                         return "You are already logged out!"
                     }
                 case 'problem':
-                    return "If you cannot see the inupt field, thats fine keep on writting.<br/>";
+                    return "If you have problem then mention it in the Comment Section.<br/>";
                 case 'clear': {
                     clearTerminal();
                     return '';
@@ -170,14 +166,14 @@ const Terminal = () => {
                     if (cmd.startsWith('echo ')) {
                         const text = cmd.substring(5);
                         if (text.startsWith('"') && text.endsWith('"')) {
-                          return text.substring(1, text.length - 1);
+                            return text.substring(1, text.length - 1);
                         } else if (text.startsWith("'") && text.endsWith("'")) {
-                          return text.substring(1, text.length - 1);
+                            return text.substring(1, text.length - 1);
                         } else {
-                          return "Error: Text must be enclosed in double quotes or single quotes";
+                            return "Error: Text must be enclosed in double quotes or single quotes";
                         }
-                      }
-                      
+                    }
+
                     return `Command not found: ${command}<br/>Type Help to know available commands`;
             }
         }
@@ -211,13 +207,42 @@ const Terminal = () => {
             //   input.select(); // Select the input field
         });
 
-    }, [navigate, profiledata]);
+    }, [navigate]);
+    let name;
+    const [userdata, setUserdata] = useState({});
 
+    const getUser = async () => {
+        try {
+            const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
+            const user = JSON.parse(response.data.user);
+            name = '';
+            if (user?.displayName) {
+                const parts = user.displayName.trim().split(' ');
+                const first = parts[0];
+                const last = parts[1] || '';
+
+                name = `&nbsp;/<span style="color: #074fe1">${first[0]}</span>${first.slice(1)}`;
+
+                if (last) {
+                    name += `&nbsp;<span style="color: #074fe1">${last[0]}</span>${last.slice(1)}`;
+                }
+
+                name += `<span style="color: #074fe1">~</span>`;
+            }
+
+            setUserdata(user)
+        } catch (error) {
+            console.log("error", error);
+        }
+    }
+    useEffect(() => {
+        getUser();
+    }, [])
 
     return (
         <div id="Terminal-sec">
             <p id="Terminal-banner">
-                <i className="fa fa-terminal"></i>
+                <i className="fa fa-terminal" style={{ margin: '0.3vh 0.6vh', padding: '0.2vh', color: '#074fe1', fontSize: '90%' }}></i>
             </p>
             <span id='Terminal-banner-text'>∼ Terminal.</span>
             <div id="Terminal">
@@ -227,19 +252,49 @@ const Terminal = () => {
                             <i className="fa fa-terminal" style={{ color: "rgba(255, 255, 255, 0.697)" }}></i>
                         </p>
                         <p id="Terminal-sub-div-heading">
-                            &#60; <span style={{ color: "#094acd" }}>S</span>hell/&#62;
+                            &#60; <span style={{ color: "#094acd" }}>D</span>ev<span style={{ color: "#094acd" }}>C</span>LI/&#62;
                         </p>
                     </div>
                     <div id="Terminal-sub-div2">
                         <div id="Terminal-sub-sub-div2_1">
                             <pre>{asciiArt}</pre>
-                            <p>Type <span style={{ color: "#094acd", fontSize: window.innerWidth > 900 ? "1.5vw" : "3.5vw" }}>Help</span> to view available commands</p>
+                            <p>Type <span style={{ color: "#094acd" }}>Help</span> to view available commands</p>
                         </div>
                         <div id="Terminal-sub-sub-div2_2">
                             <span id="output">
                                 <span id="typed">
-                                    &#60;<span style={{color: '#094acd', fontSize: window.innerWidth > 900 ? '1.5vw' : '4vw'}}>R</span>ohan's&nbsp;<span style={{color: '#094acd', fontSize: window.innerWidth > 900 ? '1.5vw' : '4vw'}}>P</span>ortfolio/&#62;<span style={{color: '#094acd', fontSize: window.innerWidth > 900 ? '1.5vw' : '4vw'}}>&nbsp;~</span>
-                                    <input className="i/o" type="text" id="input" maxLength={window.innerWidth > 900 ? 50 : 20} autoComplete="off" spellCheck="false"/>
+                                    &#60;<span style={{ color: '#094acd' }}>R</span>ohan's&nbsp;<span style={{ color: '#094acd' }}>P</span>ortfolio/&#62;<span style={{ color: '#094acd' }}>&nbsp;~
+                                        {
+                                            Object?.keys(userdata)?.length > 0 ? (
+
+                                                <span>
+                                                    &nbsp;/<span style={{ color: '#074fe1' }}>{userdata?.displayName.split(' ')[0][0]}</span>
+                                                    {userdata?.displayName.split(' ')[0].slice(1,)}
+                                                    {
+                                                        userdata?.displayName.split(' ').length > 1 ?
+                                                            (
+                                                                <>
+                                                                    &nbsp;
+                                                                    <span style={{ color: '#074fe1' }}>{userdata?.displayName.split(' ')[1][0]}</span>
+                                                                    {userdata?.displayName.split(' ')[1].slice(1,)}
+                                                                </>
+                                                            ) : (<></>)
+                                                    }
+                                                    <span style={{color: '#074fe1'}}>~</span>
+                                                </span>
+                                            )
+                                                :
+                                                (
+                                                    <>
+
+                                                    </>
+                                                )
+                                        }
+
+                                    </span>
+                                    <form id="terminal-form" autoComplete="off" spellCheck="false" onSubmit={(e) => e.preventDefault()}>
+                                        <input className="i/o" type="text" id="input" maxLength={window.innerWidth > 900 ? 50 : 20} autoComplete="off" spellCheck="false" />
+                                    </form>
                                     <span id="cursor"></span>
                                 </span>
                             </span>
