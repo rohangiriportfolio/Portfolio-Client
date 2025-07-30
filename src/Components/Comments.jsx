@@ -204,23 +204,13 @@ const Comments = () => {
               e.preventDefault();
             }
           });
-          
-        //   const element = document.getElementById('Comments-div2-container');
-        //   element.addEventListener('scroll', () => {
-        //       if (element.scrollHeight <= element.clientHeight) {
-        //       element.style.scrollbarWidth='0px';
-        //       } else {
-        //       element.style.overflowY = 'scroll';
-        //       }
-
-        //   });
-
-
         getUser();
     }, []);
+    
     useEffect(() => {
         getComments();
     }, []);
+    
     return (
         <div id="Comments-sec">
             <p id="Comments-banner">
@@ -248,7 +238,7 @@ const Comments = () => {
                                 </span>
                             )}
                     </span>
-                    <textarea value={text} onChange={handleTextChange} name="Textarea" id="Comments-div1-textarea" placeholder='Add a comment...' rows={"1"} maxLength={"1000"}></textarea>
+                    <textarea style={{cursor:'none'}} value={text} onChange={handleTextChange} name="Textarea" id="Comments-div1-textarea" placeholder='Add a comment...' rows={"1"} maxLength={"1000"}></textarea>
                     <span id='Comments-div1-span'>
                         <span onClick={onBlur}>Cancel</span>
                         <span onClick={sendData}>Comment</span>
@@ -269,7 +259,7 @@ const Comments = () => {
                             <div id='Comments-sub2-div2'>
                                 <span id='Comments-sub2-div2-likes' onClick={like}>
                                     <span className='likesIcon'>
-                                        {comment.like.indexOf(userdata._id) === -1 ?
+                                        {comment.like.indexOf(userdata.googleId) === -1 ?
                                             (
                                                 <i className="fa fa-thumbs-o-up"></i>
                                             )
@@ -282,7 +272,7 @@ const Comments = () => {
                                 </span>
                                 <span id='Comments-sub2-div2-disLikes' onClick={disLike}>
                                     <span className='disLikesIcon'>
-                                        {(comment.disLike.indexOf(userdata._id) === -1) ?
+                                        {(comment.disLike.indexOf(userdata.googleId) === -1) ?
                                             (
                                                 <i className="fa fa-thumbs-o-up" style={{ transform: 'rotate(180deg)' }}></i>
                                             )
