@@ -113,10 +113,10 @@ const Navbar = () => {
 
             if (scrollY > 220) {
                 text.classList.add('fixed');
-                text.style.transform = window.innerWidth <= 1000 ? 'translateX(35px)' : 'translateX(70px)';
+                text.style.transform = window.innerWidth <= 1000 ? 'translateX(10vw)' : 'translateX(4.5vw)';
             } else {
                 text.classList.remove('fixed');
-                text.style.transform = 'translateX(0px)';
+                text.style.transform = 'translateX(0vw)';
             }
         };
 
