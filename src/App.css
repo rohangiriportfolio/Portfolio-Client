@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+
+.App {
+  height: 100vh;
+  width: 100%;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-padding-top: 11vh;
+}
+
+.App > * {
+  scroll-snap-align: start;
+  height: 89vh; 
+}
+
+@media (max-width: 1024px) {
+  .App {
+    scroll-padding-top: 8vh;
+  }
+}
