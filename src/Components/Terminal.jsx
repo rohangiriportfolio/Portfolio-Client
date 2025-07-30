@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // import Typed from 'typed.js';
-
+ 
 const Terminal = () => {
     let user;
     const asciiArt = "__   ____       _                 _       ____            _    __       _ _           __ __\n/ /  |  _ \u005C ___ | |__   __ _ _ __ ( )___  |  _ \u005C ___  _ __| |_ / _| ___ | (_) ___     / / \u005C \u005C\n/ /   | |_) / _ \u005C| '_ \u005C / _` | '_ \u005C|// __| | |_) / _ \u005C| '__| __| |_ / _ \u005C| | |/ _ \u005C   / /   \u005C \u005C\n\u005C \u005C   |  _ < (_) | | | | (_| | | | | \u005C__ \u005C |  __/ (_) | |  | |_|  _| (_) | | | (_) | / /    / /\n\u005C_\u005C  |_| \u005C_\u005C___/|_| |_|\u005C__,_|_| |_| |___/ |_|   \u005C___/|_|   \u005C__|_|  \u005C___/|_|_|\u005C___/ /_/    /_/";
