@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import 'font-awesome/css/font-awesome.min.css';
 
 
@@ -15,7 +15,7 @@ const Footer = () => {
                     <div className="Footer-sub1">
                         {/* <div className="Footer-sub-sub-meet"><i className="fa fa-phone"></i><span>9832253315</span></div> */}
                         <div className="Footer-sub-sub-meet"><i className="fa fa-map-marker"></i><span>On Planet Earth</span></div>
-                        <div className="Footer-sub-sub-meet"><i className="fa fa-whatsapp"></i><span>Live Chat</span></div>
+                        <div className="Footer-sub-sub-meet"><i className="fa fa-whatsapp" onClick={() => window.open('https://wa.me/9832253315', '_blank', 'noopener,noreferrer')}></i><span>Live Chat</span></div>
                     </div>
                 </div>
                 <div id="Footer-connect">
@@ -23,10 +23,13 @@ const Footer = () => {
                         <p>Connect With Me</p>
                     </div>
                     <div className="Footer-sub2">
-                        <i className="fa fa-github"></i>
-                        <i className='fa fa-linkedin-square'></i>
-                        <i className="fa fa-facebook"></i>
-                        <i className="fa fa-instagram"></i>
+                        <div className="Footer-sub2">
+                            <i className="fa fa-github" onClick={() => window.open('https://github.com/rohangiriportfolio', '_blank', 'noopener,noreferrer')}></i>
+                            <i className="fa fa-linkedin-square" onClick={() => window.open('https://www.linkedin.com/in/rohan-giri-264a44302', '_blank', 'noopener,noreferrer')}></i>
+                            <i className="fa fa-twitter" onClick={() => window.open('https://x.com/Rohan_Giri_2004/', '_blank', 'noopener,noreferrer')}></i>
+                            <i className="fa fa-instagram" onClick={() => window.open('https://www.instagram.com/rohangiri1stpsr/', '_blank', 'noopener,noreferrer')}></i>
+                        </div>
+
                     </div>
                     <div className="Footer-sub2">
                         <i className="fa fa-telegram"></i>
@@ -53,7 +56,7 @@ const Footer = () => {
                 </div>
             </div>
             <div id="Footer-div2">
-                <p id="Footer-copyright"><span style={{color:"#074fe1"}}>© {date}</span> | Designed By <span style={{color:"#074fe1"}}>Røh@n Gîrĩ</span></p>
+                <p id="Footer-copyright"><span style={{ color: "#074fe1" }}>© {date}</span> | Designed By <span style={{ color: "#074fe1" }}>Røh@n Gîrĩ</span></p>
                 <p>All rights reserved. Terms & Conditions · Privacy Policy</p>
             </div>
         </div>
