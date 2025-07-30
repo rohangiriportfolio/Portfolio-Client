@@ -22,12 +22,39 @@ const Navbar = () => {
 
     const scroll_into = (id) => {
         const section = document.getElementById(id);
-      const offset = window.innerHeight * (window.innerWidth <= 1000 ? 0.1 : 0.12); // 10vh offset
-      const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: sectionPosition - offset, behavior: 'smooth' });
-    };
+        if (!section) {
+            console.error(`Section with ID "${id}" not found!`);
+            return;
+        }
 
-    const [showSidebar, setShowSidebar] = useState(0);
+        const appElement = document.querySelector('.App');
+        appElement.style.scrollSnapType = 'none'; // Disable snapping
+
+        const offset = window.innerHeight * (window.innerWidth <= 1000 ? 0.0875 : 0.109);
+        const sectionPosition = section.getBoundingClientRect().top + appElement.scrollTop; // Use appElement.scrollTop
+        appElement.scrollTo({ top: sectionPosition - offset, behavior: 'smooth' });
+
+        setTimeout(() => {
+            appElement.style.scrollSnapType = 'y mandatory'; // Re-enable snapping
+        }, 1000); // Shorter timeout
+    };
+    // const scroll_into=()=>{};
+
+
+    // const [showSidebar, setShowSidebar] = useState(0);
+    function hideSidebar() {
+        document.getElementById('Nav-content').classList.remove('show');
+    }
+
+    function showHideSidebar() {
+        document.getElementById('Nav-content').classList.toggle('show');
+        document.getElementById('Ham1').classList.toggle('anim1');
+        document.getElementById('Ham2').classList.toggle('anim2');
+        document.getElementById('Ham3').classList.toggle('anim3');
+        document.getElementById('Hamburger-icon').classList.toggle('anim');
+
+
+    }
     const [userdata, setUserdata] = useState({});
 
     const getUser = async () => {
@@ -75,7 +102,27 @@ const Navbar = () => {
         getUser();
     }, [])
 
+    useEffect(() => {
+        const container = document.querySelector('.App');
+        const text = document.getElementById('Nav-title');
 
+        const handleScroll = () => {
+            if (!text || !container) return;
+
+            const scrollY = container.scrollTop;
+
+            if (scrollY > 220) {
+                text.classList.add('fixed');
+                text.style.transform = window.innerWidth <= 1000 ? 'translateX(35px)' : 'translateX(70px)';
+            } else {
+                text.classList.remove('fixed');
+                text.style.transform = 'translateX(0px)';
+            }
+        };
+
+        container.addEventListener('scroll', handleScroll);
+        return () => container.removeEventListener('scroll', handleScroll);
+    }, []);
 
 
     return (
@@ -117,7 +164,7 @@ const Navbar = () => {
                                                     ) : (<></>)
                                             }
                                         </li>
-                                        <li style={{display:'flex', flexDirection:'row', alignItems:'center', fontSize: '0.9vw' }}><i className="fa fa-envelope"></i>{userdata?.email.slice(0, userdata.email.indexOf('@'))}</li>
+                                        <li style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', fontSize: '0.9vw' }}><i className="fa fa-envelope"></i>{userdata?.email.slice(0, userdata.email.indexOf('@'))}</li>
                                         <li onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} onClick={logout} style={{ fontSize: '0.9vw' }}>
                                             <span id='Logout'><i className="fa fa-sign-out"></i>L</span>
                                             ogout
@@ -129,7 +176,7 @@ const Navbar = () => {
                                 (
                                     <>
                                         <span id='Profile' onMouseOver={showLogout} onMouseOut={hideLogout} onClick={showLogoutPopup} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3vw', width: '3vw', borderRadius: "50%", boxShadow: "0px 0px 10px 0px #094acd" }}><i className='fa fa-user' style={{ fontSize: '1.5vw' }}></i></span>
-                                        <Link id='Profile-info' onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} to={"/LogInOut"} style={{ justifyContent: 'center', alignItems: 'center', boxShadow: "0px 0px 10px 0px #094acd", borderRadius: "5vw", outline: 'none', color: 'rgba(255, 255, 255, 0.697)', textDecoration: 'none', position: 'absolute', marginTop: '8vw', marginRight:'0.3vw', padding: '0.05vw 0.3vw 0.2vw 0.3vw', background: '#01102d', fontSize:'1.1vw' }}>
+                                        <Link id='Profile-info' onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} to={"/LogInOut"} style={{ justifyContent: 'center', alignItems: 'center', boxShadow: "0px 0px 10px 0px #094acd", borderRadius: "5vw", outline: 'none', color: 'rgba(255, 255, 255, 0.697)', textDecoration: 'none', position: 'absolute', marginTop: '8vw', marginRight: '0.3vw', padding: '0.05vw 0.3vw 0.2vw 0.3vw', background: '#01102d', fontSize: '1.1vw' }}>
                                             <span id='Logout'><i className="fa fa-sign-in"></i> L</span>
                                             ogin
                                         </Link>
@@ -139,14 +186,19 @@ const Navbar = () => {
                     </span>
                 </ul>
 
-            ) : showSidebar ? (
-                <div id='Nav-div-content' className='a'>
-                    <span id="Hamburger-icon" onClick={() => setShowSidebar(!showSidebar)} style={{ width: '70vw', height: '5vh', marginLeft: '5vw' }} >
-                        <span style={{ transform: 'translate(0%, 140%) rotate(45deg)' }}></span>
-                        <span style={{ transform: 'translate(0%, -140%) rotate(-45deg)' }}></span>
+            ) : (
+                <>
+                    <span id="Hamburger-icon" onClick={() => showHideSidebar()} style={{ zIndex: '5' }}>
+                        <span id='Ham1'></span>
+                        <span id='Ham2'></span>
+                        <span id='Ham3'></span>
                     </span>
-                    <ul id="Nav-content">
-                        <span style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "15vw", height: "20vw", margin: "1.5vw", color: "rgba(255, 255, 255, 0.697)", marginBottom:'10vw' }}>
+                    <ul id="Nav-content" className="sidebar">
+                        {/* <span id="Hamburger-icon" onClick={() => hideSidebar()} style={{width: '70vw'}} >
+                            <span style={{ transform: 'translate(0%, 140%) rotate(45deg)' }}></span>
+                            <span style={{ transform: 'translate(0%, -140%) rotate(-45deg)' }}></span>
+                        </span> */}
+                        <span style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "15vw", height: "20vw", margin: "1.5vw", color: "rgba(255, 255, 255, 0.697)", marginBottom: '10vw', transition: 'all 0.5s' }}>
                             {
                                 Object?.keys(userdata)?.length > 0 ? (
                                     <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '15vw', width: '15vw', boxShadow: "0px 0px 10px 0px #094acd", borderRadius: "50%" }}>
@@ -167,7 +219,7 @@ const Navbar = () => {
                                                         ) : (<></>)
                                                 }
                                             </li>
-                                            <li style={{display:'flex', flexDirection:'row', fontSize: '4vw' }}><i className="fa fa-envelope"></i><span>{userdata?.email.slice(0, userdata.email.indexOf('@'))}</span></li>
+                                            <li style={{ display: 'flex', flexDirection: 'row', fontSize: '4vw' }}><i className="fa fa-envelope"></i><span>{userdata?.email.slice(0, userdata.email.indexOf('@'))}</span></li>
                                             <li onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} onClick={logout} style={{ fontSize: '4vw' }}>
                                                 <span id='Logout'><i className="fa fa-sign-out"></i>L</span>
                                                 ogout
@@ -179,8 +231,8 @@ const Navbar = () => {
                                     (
                                         <>
                                             <span id='Profile' onMouseOver={showLogout} onMouseOut={hideLogout} onClick={showLogoutPopup} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '15vw', width: '15vw', borderRadius: "50%", boxShadow: "0px 0px 10px 0px #094acd" }}><i className='fa fa-user' style={{ fontSize: '8vw' }}></i></span>
-                                            <Link id='Profile-info' onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} to={"/LogInOut"} style={{ justifyContent: 'center', alignItems: 'center', boxShadow: "0px 0px 10px 0px #094acd", borderRadius: "5vw", outline: 'none', color: 'rgba(255, 255, 255, 0.697)', textDecoration: 'none', position: 'absolute', marginTop: '25vw', padding: '0.2vw 1.5vw 0.2vw 1vw', background: '#01102d', fontSize:'4vw' }}>
-                                                <span id='Logout' style={{display:'flex', alignItems: 'center', justifyContent:'center'}}><i className="fa fa-sign-in"></i> L</span>
+                                            <Link id='Profile-info' onMouseOver={() => mouse_over('Logout')} onMouseOut={() => mouse_out('Logout')} to={"/LogInOut"} style={{ justifyContent: 'center', alignItems: 'center', boxShadow: "0px 0px 10px 0px #094acd", borderRadius: "5vw", outline: 'none', color: 'rgba(255, 255, 255, 0.697)', textDecoration: 'none', position: 'absolute', marginTop: '25vw', padding: '0.2vw 1.5vw 0.2vw 1vw', background: '#01102d', fontSize: '4vw' }}>
+                                                <span id='Logout' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><i className="fa fa-sign-in"></i> L</span>
                                                 ogin
                                             </Link>
                                         </>
@@ -192,13 +244,7 @@ const Navbar = () => {
                         <li className='Nav-content-li' onMouseOver={() => mouse_over('comment')} onMouseOut={() => mouse_out('comment')} onClick={() => scroll_into('Comments-sec')}>&#60;<span id="comment"><i className="fa fa-commenting"></i>C</span>omment /&#62;</li>
                         <li className='Nav-content-li' onMouseOver={() => mouse_over('terminal')} onMouseOut={() => mouse_out('terminal')} onClick={() => scroll_into('Terminal-sec')}>&#60;<span id="terminal"><i className="fa fa-terminal" style={{ fontSize: "120%" }}></i>T</span>erminal /&#62;</li>
                     </ul>
-                </div>
-            ) : (
-                <span id="Hamburger-icon" onClick={() => setShowSidebar(!showSidebar)} >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </span>
+                </>
             )}
 
         </nav>
