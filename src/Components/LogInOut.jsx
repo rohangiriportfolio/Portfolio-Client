@@ -1,7 +1,11 @@
 import React from 'react';
 import './style.css';
 import { useGoogleLogin } from '@react-oauth/google';
+import Lottie from 'lottie-react';
 import axios from 'axios';
+import animationData from '../Google Logo.json';
+import animationData1 from '../arrow.json';
+import { useRef, useEffect } from "react";
 // import { useEffect } from 'react';
     
 const LogInOut = () => {
@@ -36,23 +40,48 @@ const LogInOut = () => {
         document.getElementById('LogInGoogle').style.color='rgba(255, 255, 255, 0.697)';
     }
 
+    const lottieRef = useRef();
+
+  useEffect(() => {
+    // Stop the animation after 1.5 seconds
+    const timer = setTimeout(() => {
+      lottieRef.current?.pause();
+      if (lottieRef.current) {
+        lottieRef.current.setSpeed(2); // 2x speed. You can set 1.5, 3, etc.
+      }
+    }, 3500); // 1500ms = 1.5 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
     return (
-        
-        // <GoogleOAuthProvider clientId="825728309377-u1vkdp77pua096vm4cj9jcb59037fnba.apps.googleusercontent.com">
-        // </GoogleOAuthProvider>;
+
         <div id='LogInOut-sec'>
-            <div id='LogInOut'>
-                <div id='LogInOut-div'>
-                    <img src="p-img.png" alt="Profile_Img" />
-                    <span></span>
-                    <img src="GoogleLogo.png" alt="GoogleLogo" />
-                </div>
-                <span id='LogInOut-span1'><i className="fa fa-sign-in"></i> Login To <span style={{color:'#094acd'}}>Rohan's Portfolio</span>  With</span>
-                <span id='LogInOut-span2' onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={login} style={{  }}><i className="fa fa-google"></i> <span id='LogInGoogle'>G</span>oogle
-                </span>
-            </div>
+      <div id='LogInOut'>
+        <div id='LogInOut-div'>
+          <img src="p-img.png" alt="Profile_Img" />
+          {/* <span></span> */}
+          <Lottie id='Arrow'
+            animationData={animationData1}
+            loop={true}
+            autoplay={true}
+            lottieRef={lottieRef}
+          />
+          {/* <img src="GoogleLogo.png" alt="GoogleLogo" /> */}
+          {/* <span> */}
+          <Lottie id='Google-logo'
+            animationData={animationData}
+            lottieRef={lottieRef}
+            loop={false}
+            autoplay={true}
+          />
+          {/* </span> */}
         </div>
+        <span id='LogInOut-span1'><i className="fa fa-sign-in"></i> Login To <span style={{ color: '#094acd' }}>Rohan's Portfolio</span>  With</span>
+        <span id='LogInOut-span2' onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={login} style={{}}><i className="fa fa-google"></i> <span id='LogInGoogle'>G</span>oogle
+        </span>
+      </div>
+    </div>
     );
 }
 
