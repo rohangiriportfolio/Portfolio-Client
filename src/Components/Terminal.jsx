@@ -13,25 +13,6 @@ const Terminal = () => {
     const logout = () => {
         window.open("https://portfolio-server-ashy-kappa.vercel.app/logout", "_self");
     }
-    // const getProfile = async () => {
-    //     try {
-    //         const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
-    //         user = JSON.parse(response.data.user);
-    //         // setProfiledata(user.displayName);
-    //         profiledata=user.displayName;
-    //     } catch (error) {
-    //         console.log("error", error);
-    //     }
-    // }
-    // useEffect(()=>{
-    //     getProfile();
-    // }, []);
-    // useEffect(() => {
-    //     if (profiledata) {
-    //         console.log(profiledata); // Logs profiledata after it changes
-    //     }
-    // }, [profiledata]); 
-
     
     useEffect(() => {
 
@@ -57,7 +38,7 @@ document.getElementById("terminal-form").addEventListener("submit", function (ev
             if (command && command !== "clear") {
                 const commandOutput = document.createElement('span');
                 commandOutput.classList.add('command-line');
-                commandOutput.innerHTML = `\u003C<span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">R</span>ohan's <span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">P</span>ortfolio\u002F\u003E\u0020<span style="color: #094acd; font-size: ${window.innerWidth > 900 ? '1.5vw' : '4vw'}">~</span>${name}`;
+                commandOutput.innerHTML = `\u003C<span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">R</span>ohan's <span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">P</span>ortfolio\u002F\u003E\u0020<span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">~</span>${name}`;
                 commandOutput.innerHTML += input.value;
                 output.appendChild(commandOutput);
                 output.removeChild(typed);
