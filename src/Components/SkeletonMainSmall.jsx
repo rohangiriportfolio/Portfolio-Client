@@ -14,11 +14,11 @@ const SkeletonMainSmall = () => {
                         <Skeleton variant="rect" width={"5vw"} height={"2.5vh"} />
                     </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", width: "100vw", height: "91vh" }}>
-                    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", width: "70vw", height: "50vh" }}>
-                        <Skeleton variant="rect" width={"70vw"} height={"70vw"} style={{ clipPath: 'circle(50% at 50% 50%)' }} />
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", width: "100vw", height: "70vh" }}>
+                    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", width: "55vw", height: "50vh" }}>
+                        <Skeleton variant="rect" width={"55vw"} height={"55vw"} style={{ clipPath: 'circle(50% at 50% 50%)' }} />
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", width: "67vw", height: "41vh", marginTop:"-7.5vh" }}>
+                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", width: "70vw", height: "41vh", marginTop:"-7.5vh" }}>
                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "30vw", height: "8vh", marginRight: "5vw"}}>
                             <Skeleton variant="rect" width={"65vw"} height={"2.3vh"} />
                         </div>
@@ -37,6 +37,9 @@ const SkeletonMainSmall = () => {
                             </div>
 
                         </div>
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height:"2vh" }}>
+                                <Skeleton variant="rect" width={"60vw"} height={"2vh"} />
+                            </div>
                     </div>
                 </div>
                 {/* <Skeleton variant="rect" width={100} height={200} />
