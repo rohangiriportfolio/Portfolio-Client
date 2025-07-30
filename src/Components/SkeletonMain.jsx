@@ -29,7 +29,7 @@ const SkeletonMain = () => {
 
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "row", width: "100vw", height: "89vh" }}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "33vw", height: "89vh" }}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "33vw", height: "89vh", marginLeft: "5vw" }}>
             <Skeleton variant="rect" width={"23vw"} height={"23vw"} style={{ clipPath: 'circle(50% at 50% 50%)' }} />
           </div>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "67vw", height: "89vh" }}>
