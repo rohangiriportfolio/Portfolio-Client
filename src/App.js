@@ -28,8 +28,8 @@ function App() {
           <Navbar />
           <Home />
           <Creation />
-          <Comments />
           <Terminal />
+          <Comments />
           <Footer />
           
         </>
