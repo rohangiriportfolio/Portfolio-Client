@@ -9,40 +9,86 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 
 const Home = () => {
+
+
+    useEffect(() => {
+        document.getElementById('github').addEventListener('click', () => {
+            window.open('https://github.com/rohangiriportfolio', '_blank', 'noopener,noreferrer');
+        });
+
+        document.getElementById('linkedin').addEventListener('click', () => {
+            window.open('https://www.linkedin.com/in/rohan-giri-264a44302', '_blank', 'noopener,noreferrer');
+        });
+
+        document.getElementById('twitter').addEventListener('click', () => {
+            window.open('https://x.com/Rohan_Giri_2004/', '_blank', 'noopener,noreferrer');
+        });
+
+        document.getElementById('instagram').addEventListener('click', () => {
+            window.open('https://www.instagram.com/rohangiri1stpsr/', '_blank', 'noopener,noreferrer');
+        });
+
+        const container = document.querySelector('.App');
+        const img = document.getElementById('Home-img');
+
+        const handleScroll = () => {
+            if (!img || !container) return;
+
+            const scrollY = container.scrollTop;
+
+            if (scrollY > 220) {
+                img.classList.add('fixed');
+                img.style.transform = 'scale(0.20)';
+            } else {
+                img.classList.remove('fixed');
+                img.style.transform = 'scale(1)';
+            }
+        };
+
+        container.addEventListener('scroll', handleScroll);
+        return () => container.removeEventListener('scroll', handleScroll);
+    }, []);
+
+
+
     const [count, setCount] = useState(0);
     useEffect(() => {
 
-        document.querySelector('#Cookie-policy p').addEventListener('click', () => {
-            document.getElementById('Cookie-policy').style.display = 'none';
-            document.getElementById('Visitors').style.display = 'flex';
+        let cursor = document.querySelector('.cursor');
+        if (!cursor) {
+            cursor = document.createElement('div');
+            cursor.classList.add('cursor');
+            document.body.appendChild(cursor);
+        }
 
-        });
+        // Function to update glow position and ensure it's centered
+        function updateCursorPosition(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            cursor.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+        }
+
+        // Function to control glow visibility
+        function showCursor() {
+            cursor.style.opacity = '0.9'; // Brighter for better visibility
+        }
+
+        function hideCursor() {
+            cursor.style.opacity = '0';
+        }
+
+        // Apply glow effect only when moving inside the document
+        document.addEventListener('mousemove', updateCursorPosition);
+        document.addEventListener('mouseenter', showCursor);
+        document.addEventListener('mouseleave', hideCursor);
+
+        // document.querySelector('#Cookie-policy p').addEventListener('click', () => {
+        //     document.getElementById('Cookie-policy').style.display = 'none';
+        //     document.getElementById('Visitors').style.display = 'flex';
+
+        // });
 
 
-        // Show Cookie Policy when the visitor p is clicked
-        document.querySelector('#Visitors p').addEventListener('click', () => {
-            document.getElementById('Cookie-policy').style.display = 'flex';
-            document.getElementById('Visitors').style.display = 'none';
-        });
-
-        // Hide Cookie Policy when clicking outside of it
-        document.addEventListener('click', (event) => {
-            const cookieElement = document.getElementById('Cookie-policy');
-            const visitorsElement = document.getElementById('Visitors');
-
-            // Check if the clicked element is not the Cookie-policy or a descendant of it
-            if (cookieElement && !cookieElement.contains(event.target) && !event.target.closest('#Visitors p')) {
-                cookieElement.style.display = 'none';
-                visitorsElement.style.display = 'flex';
-            }
-        });
-
-
-
-        let visits = localStorage.getItem("visitorCount") || 0;
-        visits = parseInt(visits) + 1;
-        setCount(visits);
-        localStorage.setItem("visitorCount", visits);
 
 
         // Create the glow element only once
@@ -74,6 +120,29 @@ const Home = () => {
         document.addEventListener('mouseenter', showGlow);
         document.addEventListener('mouseleave', hideGlow);
 
+        // document.querySelector('#Visitors p').addEventListener('click', () => {
+        //     document.getElementById('Cookie-policy').style.display = 'flex';
+        //     document.getElementById('Visitors').style.display = 'none';
+        // });
+
+        // Hide Cookie Policy when clicking outside of it
+        document.addEventListener('click', (event) => {
+            const cookieElement = document.getElementById('Cookie-policy');
+            const visitorsElement = document.getElementById('Visitors');
+
+            // Check if the clicked element is not the Cookie-policy or a descendant of it
+            if (cookieElement && !cookieElement.contains(event.target) && !event.target.closest('#Visitors p')) {
+                cookieElement.style.display = 'none';
+                visitorsElement.style.display = 'flex';
+            }
+        });
+
+
+
+        let visits = localStorage.getItem("visitorCount") || 0;
+        visits = parseInt(visits) + 1;
+        setCount(visits);
+        localStorage.setItem("visitorCount", visits);
 
 
         // Continuous Animated Square Filling Effect for Home Section (with 3vh left margin and different tones)
@@ -92,24 +161,6 @@ const Home = () => {
                 block.classList.add('filled');
             }, Math.random() * 500);
         }
-
-        // Function to continuously fill grid squares with different tones
-        // function continuouslyFillSquares(count) {
-        //   setInterval(() => {
-        // document.querySelectorAll('.grid-block').forEach(block => block.remove());
-        // for (let i = 0; i < 15; i++) {
-        //   const x = Math.floor(Math.random() * (homeSection.offsetWidth * 0.34 / 60)) * 60;
-        //   const y = Math.floor(Math.random() * ((homeSection.offsetHeight - window.innerHeight * 0.1) / 60)) * 60;
-        //   const tone = Math.floor(Math.random() * 50) + 30; // Random tone value
-        //   createAnimatedBlock(x, y, tone);
-        // }
-        //   }, 2000);
-        // }
-
-        // continuouslyFillSquares(15);
-
-
-
 
 
         const scrollContainer1 = document.getElementById('Home-welcome-sub-sub-text');
@@ -184,13 +235,18 @@ const Home = () => {
     }, []);
 
     return (
-        <div id='Home-sec'>
+        <div id='Home-sec' style={{ overflowY: 'scroll' }}>
+            <div class="cursor"></div>
             <p id='Home-banner'><i className="fa fa-home"></i></p>
             <span id='Home-banner-text'>∼ Home.</span>
             <div id='Home'>
-                <div id='Home-img'>
-                    <img src="p-img.png" alt="Profile_Img" />
+                <div id="Home-img-wrapper">
+                    <div id="Home-img">
+                        <img src="p-img.png" alt="Profile_Img" />
+                    </div>
                 </div>
+
+                {/* <div style={{ height: "150vh", background: "#f0f0f0" }}></div> */}
                 <div id='Home-welcome'>
                     <h2>
                         <span>
@@ -200,7 +256,7 @@ const Home = () => {
                                 autoplay={true}
                             />
                         </span>
-                        <span><span style={{ fontFamily: "Righteous" }}>Hello/Bonjour/Holla</span> Coders</span>
+                        <span><span style={{ fontFamily: "Righteous" }}>Hello/Bonjour/Hola</span> Coders</span>
                     </h2>
                     <span id='Home-welcome-text'>
                         <span className='Home-welcome-text-fixed'>I'm &#60;&nbsp;</span><span id='Home-welcome-text-typing'></span><span className='Home-welcome-text-fixed'>&nbsp;/&#62;</span>
@@ -263,24 +319,24 @@ const Home = () => {
                         )}
                         <span id='right_btn' className='Home-welcome-sub-sub-text-bracket'>/&#62;</span>
                     </div>
-                    <div id='Home-conn'>
-                        <i className="fa fa-github"></i>
-                        <i className='fa fa-linkedin-square'></i>
-                        <i className="fa fa-facebook"></i>
-                        <i className="fa fa-instagram"></i>
+                    <div id="Home-conn">
+                        <i class="fa fa-github" id='github'></i>
+                        <i class="fa fa-linkedin-square" id='linkedin'></i>
+                        <i class="fa fa-twitter" id='twitter'></i>
+                        <i class="fa fa-instagram" id='instagram'></i>
                         <a href="/path/to/file.pdf" download="filename.pdf">
                             <button>Get CV</button>
                         </a>
                     </div>
-                    <div id='Visitors'>
-                        {/* <p>Visitors</p>
-                        <p>{count}</p> */}
+
+
+                    {/* <div id='Visitors'>
                         <p><img src="cookie.png" alt="" /></p>
-                    </div>
-                    <div id='Cookie-policy'>
+                    </div> */}
+                    {/* <div id='Cookie-policy'>
                         <p><img src="cookieBlue.png" alt="" /></p>
                         <p>My website uses cookies to improve your experience and provide personalized features. We collect your email address, profile details, through cookies to customize your interactions with the site. By using the site, you consent to our use of cookies. You can manage or disable cookies through your browser settings.</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
