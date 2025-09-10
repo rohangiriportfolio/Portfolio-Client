@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // import Typed from 'typed.js';
- 
+
 const Terminal = () => {
-    let user;
     const asciiArt = "__   ____       _                 _       ____            _    __       _ _           __ __\n/ /  |  _ \u005C ___ | |__   __ _ _ __ ( )___  |  _ \u005C ___  _ __| |_ / _| ___ | (_) ___     / / \u005C \u005C\n/ /   | |_) / _ \u005C| '_ \u005C / _` | '_ \u005C|// __| | |_) / _ \u005C| '__| __| |_ / _ \u005C| | |/ _ \u005C   / /   \u005C \u005C\n\u005C \u005C   |  _ < (_) | | | | (_| | | | | \u005C__ \u005C |  __/ (_) | |  | |_|  _| (_) | | | (_) | / /    / /\n\u005C_\u005C  |_| \u005C_\u005C___/|_| |_|\u005C__,_|_| |_| |___/ |_|   \u005C___/|_|   \u005C__|_|  \u005C___/|_|_|\u005C___/ /_/    /_/";
     const navigate = useNavigate();
     // const [profiledata, setProfiledata] = useState();
     let profiledata;
     const logout = () => {
-        window.open("https://portfolio-server-ashy-kappa.vercel.app/logout", "_self");
+        window.open("http://localhost:5000/logout", "_self");
     }
-    
+    const [name, setName] = useState('');
+  const nameRef = useRef(name);
+
+  //Keep ref updated with latest name value
+  useEffect(() => {
+    nameRef.current = name;
+  }, [name]);
     useEffect(() => {
 
         let input = document.getElementById("input");
@@ -22,14 +27,14 @@ const Terminal = () => {
         let terminalSubDiv2 = document.getElementById('Terminal-sub-div2');
         let terminalDiv = document.getElementById('Terminal-div');
         terminalSubDiv2.style.scrollBehavior = "smooth";
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             if (!terminalDiv.contains(event.target)) {
                 input.blur();
                 terminalDiv.style.boxShadow = "0px 0px 5px 0px #094acd";
             }
-          });
-          
-document.getElementById("terminal-form").addEventListener("submit", function (event) {
+        });
+
+        document.getElementById("terminal-form").addEventListener("submit", function (event) {
             event.preventDefault();
 
             const command = input.value.trim();
@@ -38,7 +43,7 @@ document.getElementById("terminal-form").addEventListener("submit", function (ev
             if (command && command !== "clear") {
                 const commandOutput = document.createElement('span');
                 commandOutput.classList.add('command-line');
-                commandOutput.innerHTML = `\u003C<span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">R</span>ohan's <span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">P</span>ortfolio\u002F\u003E\u0020<span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">~</span>${name}`;
+                commandOutput.innerHTML = `\u003C<span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">R</span>ohan's <span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">P</span>ortfolio\u002F\u003E\u0020<span style="color: #094acd; font-size: ${window.innerWidth > 1000 ? '1.5vw' : '4vw'}">~</span>${nameRef.current}`;
                 commandOutput.innerHTML += input.value;
                 output.appendChild(commandOutput);
                 output.removeChild(typed);
@@ -188,37 +193,45 @@ document.getElementById("terminal-form").addEventListener("submit", function (ev
             //   input.select(); // Select the input field
         });
 
-    }, [navigate]);
-    let name;
+    }, [navigate, name]);
+
+
     const [userdata, setUserdata] = useState({});
 
     const getUser = async () => {
-        try {
-            const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
-            const user = JSON.parse(response.data.user);
-            name = '';
-            if (user?.displayName) {
-                const parts = user.displayName.trim().split(' ');
-                const first = parts[0];
-                const last = parts[1] || '';
+  try {
+    const response = await axios.get("http://localhost:5000/login/success", { withCredentials: true });
 
-                name = `&nbsp;/<span style="color: #074fe1">${first[0]}</span>${first.slice(1)}`;
+    if (response.data?.user && response.data.user.displayName !== 'undefined') {
+      const user = JSON.parse(response.data.user);
+      if (user.displayName && user.displayName !== 'undefined') {
+        const parts = user.displayName.trim().split(' ');
+        const first = parts[0];
+        const last = parts[1] || '';
 
-                if (last) {
-                    name += `&nbsp;<span style="color: #074fe1">${last[0]}</span>${last.slice(1)}`;
-                }
-
-                name += `<span style="color: #074fe1">~</span>`;
-            }
-
-            setUserdata(user)
-        } catch (error) {
-            console.log("error", error);
+        let formattedName = `&nbsp;/<span style="color: #074fe1">${first[0]}</span>${first.slice(1)}`;
+        if (last) {
+          formattedName += `&nbsp;<span style="color: #074fe1">${last[0]}</span>${last.slice(1)}`;
         }
+        formattedName += `<span style="color: #074fe1">~</span>`;
+        setName(formattedName);
+      } else {
+        setName('');
+      }
+      setUserdata(user);
+    } else {
+      setName('');
+      setUserdata({});
     }
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
     useEffect(() => {
         getUser();
     }, [])
+
 
     return (
         <div id="Terminal-sec">
@@ -261,7 +274,7 @@ document.getElementById("terminal-form").addEventListener("submit", function (ev
                                                                 </>
                                                             ) : (<></>)
                                                     }
-                                                    <span style={{color: '#074fe1'}}>~</span>
+                                                    <span style={{ color: '#074fe1' }}>~</span>
                                                 </span>
                                             )
                                                 :
