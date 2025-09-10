@@ -119,19 +119,19 @@ const Terminal = () => {
                 case 'contact':
                     return "You can reach me via email at 'rohangiri1884@gmail.com'.<br/>";
                 case 'login':
-                    if (profiledata) {
-                        console.log(profiledata);
+                    if (userdata) {
+                        // console.log(userdata);
                         return "You are already logged in!"
                     }
                     else {
-                        console.log(profiledata);
+                        // console.log(userdata);
                         setTimeout(() => {
                             navigate('/LogInOut');
                         }, 1800);
                         return "Wait a sec...";
                     }
                 case 'logout':
-                    if (profiledata) {
+                    if (userdata) {
                         setTimeout(() => {
                             logout();
                         }, 1800);
