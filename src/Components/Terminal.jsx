@@ -10,6 +10,7 @@ const Terminal = () => {
     // const [profiledata, setProfiledata] = useState();
     let profiledata;
     const logout = () => {
+        setUserdata({});
         window.open("https://portfolio-server-ashy-kappa.vercel.app/logout", "_self");
     }
     const [name, setName] = useState('');
