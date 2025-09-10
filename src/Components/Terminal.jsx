@@ -10,7 +10,7 @@ const Terminal = () => {
     // const [profiledata, setProfiledata] = useState();
     let profiledata;
     const logout = () => {
-        window.open("http://localhost:5000/logout", "_self");
+        window.open("https://portfolio-server-ashy-kappa.vercel.app/logout", "_self");
     }
     const [name, setName] = useState('');
   const nameRef = useRef(name);
@@ -200,7 +200,7 @@ const Terminal = () => {
 
     const getUser = async () => {
   try {
-    const response = await axios.get("http://localhost:5000/login/success", { withCredentials: true });
+    const response = await axios.get("https://portfolio-server-ashy-kappa.vercel.app/login/success", { withCredentials: true });
 
     if (response.data?.user && response.data.user.displayName !== 'undefined') {
       const user = JSON.parse(response.data.user);
